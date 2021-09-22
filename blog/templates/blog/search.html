@@ -1,0 +1,59 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Search{% endblock title %}
+
+{% block msg %}
+ 
+    {% if messages %}
+            {% for message in messages  %}
+            <div
+               class="alert alert-{{message.tags}} alert-dimissible fade show mb-2" >
+              
+              <strong> {{message}}</strong>
+              <button type="button" title="close">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="hide"></span>
+              </button>
+              
+            </div>
+            {% endfor %}
+    {% endif %}
+
+{% endblock msg %}
+
+
+{% block content %}
+
+<div class="col-sm-10">
+  <h1 class="text-white my-5">Search Results:</h1>
+
+  {% if posts|length < 1 %}
+    <h5>Your search -- <b>{{query}}</b> -- did not match any documents.<br><br>
+
+      Suggestions:
+
+      Make sure that all words are spelled correctly.
+      <li>Try different keywords.</li>
+      <li>Try more general keywords.</li>
+    </h5>
+    
+  {% endif %}
+
+  {% for post in posts  %}
+    <div class="jumbotron jumbotron-fluid jumbo-color my-3 ">
+      <div class="container">
+        <h4 class="display-4 fw-bolder">{{post.title}}</h4>
+        <p class="lead">{{post.desc}}</p>
+
+        <a download href=" {{post.my_file.url}}" class="btn btn-secondary"><p class="lead">{{post.my_file}}</p></a>
+        
+        
+      </div>
+    </div>
+    
+  {% endfor %}
+
+</div><p></p>
+<br><br><br><br><br><br><br><br><br>
+{% endblock content%}
